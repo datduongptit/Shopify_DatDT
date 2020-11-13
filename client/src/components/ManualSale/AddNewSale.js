@@ -6,6 +6,7 @@ import {getProducts} from '../../actions/manualSale'
 import ProductItems from './ProductItems';
 import Alert from '../Alert';
 import Spinner from '../contents/Spinner';
+import Test from '../Test';
 
 const AddNewSale = ({getProducts, manualSale: {products, loading}}) => {
     useEffect(() => {

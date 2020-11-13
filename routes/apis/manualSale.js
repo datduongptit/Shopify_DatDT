@@ -5,26 +5,35 @@ const {check, validationResult} = require('express-validator');
 
 // GET all Manual Sales
 router.get('/', async (req, res) => {
-    conn.query('SELECT * FROM manualsales',async function (error, results, fields) {
-        if (error) throw error;
-        return await res.send(results);
-    });
+    try {
+        conn.query('SELECT * FROM manualsales',async function (error, results, fields) {
+            if (error) throw error;
+            return res.send(results);
+        });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
     
 });
 
 // GET Manual Sales by ID
 router.get('/:id', async (req, res) => {
-
-    let id = req.params.id;
-
-    if (!id) {
-        return res.status(400).send({ error: true, message: 'Please provide id' });
+    try {
+        let id = req.params.id;
+        if (!id) {
+            return res.status(400).send({ error: true, message: 'Please provide id' });
+        }
+    
+        conn.query('SELECT * FROM manualsales where id=?', id, function (error, results, fields) {
+            if (error) throw error;
+            return res.send(results);
+        });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 
-    conn.query('SELECT * FROM manualsales where id=?', id, function (error, results, fields) {
-        if (error) throw error;
-        return res.send(results);
-    });
 
 });
 

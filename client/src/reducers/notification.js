@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
         case ADD_NOTIFICATION:
             return {
                 ...state,
-                notification: [payload, ...state.notification],
+                notification: [payload],
                 loading: false
             }
         case GET_NOTIFICATION:

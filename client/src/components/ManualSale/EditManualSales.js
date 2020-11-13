@@ -48,7 +48,7 @@ const EditManualSales = ({products, updateProduct, getProducts}) => {
   const activator = <button className="btn btn-dark" onClick={handleChange}><span>Edit</span></button>;
   return (
     <>
-          <div className='mb-3'>
+          <div>
             <Modal
               large
               activator={activator}

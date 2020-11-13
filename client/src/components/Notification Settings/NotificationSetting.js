@@ -335,7 +335,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                     <TextStyle variation='strong'>Custom Text</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                        <input className='input-form' type='text' name= 'customText' value= {customText} onChange={onChangeData}/>
+                                        <input className='input-form' type='text' name= 'customText' defaultValue= {notification.customText} onChange={onChangeData}/>
                                         <p className='note-text p-0'>
                                         If you want to show the customer's name, lets put "%name" you in the text box. Do the same with the customer's city.
                                         Or instead of show the customer's name you can replace "%name" with "Someone". And "%city" it works with city.
@@ -475,7 +475,6 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                     <Layout.Section>
                                         <img alt='nothing' style={{paddingRight: "10px"}} src= "chrome-extension://ohcpnigalekghcmgcdcenkpelffpdolg/img/icon16.png" />
                                         <input className='inputColor' name='color' value= {color} onChange={onChangeColor} type='color' />
-                                        {console.log(color)}
                                     </Layout.Section> 
                                 </Layout>
                             </div>

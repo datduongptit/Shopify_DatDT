@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
             console.log(payload);
             return {
                 ...state,
-                realtimeSetting: [payload, ...state.realtimeSetting],
+                realtimeSetting: [payload],
                 loading: false
             };
         case REALTIME_ERROR:
