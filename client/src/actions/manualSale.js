@@ -13,7 +13,7 @@ import {
 // Get all product
 export const getProducts = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/manualSale');
+    const res = await axios.get('/api/notification_manual_sales');
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
@@ -35,7 +35,7 @@ export const publishOrders = (id, value) => async (dispatch) => {
     },
   }
   try {
-    const res = await axios.put(`/api/manualSale/publishOrder/${id}`, value, config);
+    const res = await axios.put(`/api/notification_manual_sales/publish_status/${id}`, value, config);
     dispatch({
       type: PUBLISH_PRODUCT,
       payload: res.data,
@@ -58,7 +58,7 @@ export const addProduct = (formData) => async (dispatch) => {
     },
   }
   try {
-    const res = await axios.post('/api/manualSale', formData, config)
+    const res = await axios.post('/api/notification_manual_sales', formData, config)
 
     dispatch({
       type: ADD_PRODUCT,
@@ -84,7 +84,7 @@ export const addProduct = (formData) => async (dispatch) => {
 // Get product by params id
 export const getProduct = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/manualSale/${id}`)
+    const res = await axios.get(`/api/notification_manual_sales/${id}`)
 
     dispatch({
       type: GET_PRODUCT,
@@ -107,7 +107,7 @@ export const updateProduct = (id, formData) => async (dispatch) =>{
     },
   }
   try {
-    const res = await axios.put(`/api/manualSale/${id}`, formData, config);
+    const res = await axios.put(`/api/notification_manual_sales/${id}`, formData, config);
     dispatch({
       type: EDIT_PRODUCT,
       payload: res.data
@@ -124,7 +124,7 @@ export const updateProduct = (id, formData) => async (dispatch) =>{
 // Delete Product
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/manualSale/${id}`)
+    await axios.delete(`/api/notification_manual_sales/${id}`)
 
     dispatch({
       type: DELETE_PRODUCT,

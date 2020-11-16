@@ -14,7 +14,7 @@ export const addRealtimeSetting = (formData) => async (dispatch) => {
         },
     }
     try {
-        const res = await axios.post('/api/realtime_setting', formData, config);
+        const res = await axios.post('/api/notification_realtime', formData, config);
         
         dispatch({
             type: ADD_REALTIME,
@@ -37,7 +37,7 @@ export const addRealtimeSetting = (formData) => async (dispatch) => {
 
 export const getRealtimeSetting = () => async (dispatch) => {
     try {
-        const res = await axios.get('/api/realtime_setting');
+        const res = await axios.get('/api/notification_realtime');
         dispatch({
             type: GET_REALTIME,
             payload: res.data
