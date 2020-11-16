@@ -5,7 +5,8 @@ import {
     DELETE_PRODUCT,
     ADD_PRODUCT,
     PRODUCT_ERROR,
-    PUBLISH_PRODUCT
+    PUBLISH_PRODUCT,
+    // GET_DATA
 } from '../constants/constants';
 
 const initialState = {
@@ -19,6 +20,7 @@ export default function (state = initialState, action) {
     const {type, payload} = action;
     switch (type) {
         case GET_PRODUCTS:
+        // case GET_DATA:
             return {
                 ...state,
                 products: payload,
