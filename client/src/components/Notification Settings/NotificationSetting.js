@@ -27,7 +27,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
         {label: '02/20/20', value: '02/20/20'},
         {label: '01/20/20', value: '01/20/20'}
     ]
-    const [choose, choosed] = useState(notification.dateFormat);
+    const [choose, choosed] = useState(notification.type_date);
     const handleOptionTimes = useCallback((value) =>  choosed(value), []);
 
     const optionsDate = [
@@ -49,7 +49,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
         {label: 'Fake Order', value: 'Fake Order'},
         {label: 'All Order', value: 'All Order'},
     ];
-    const [selectedOrderSelect, setSelectOrderSelect] = useState(notification.selectOrder);
+    const [selectedOrderSelect, setSelectOrderSelect] = useState(notification.type_order);
     const handleSelectOrder = useCallback((value) => setSelectOrderSelect(value), []);
 
     const [positionValue, setPosition] = useState(notification.position);
@@ -57,39 +57,39 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
       (_checked, newValue) => setPosition(newValue),
       [],
     );
-    const [formDisplay, setFormDisplay] = useState(notification.notiDisplay);
+    const [formDisplay, setFormDisplay] = useState(notification.effect_display);
     const {display} = formDisplay;
 
-    const [formHide, setFormHide] = useState(notification.notiHidden);
+    const [formHide, setFormHide] = useState(notification.effect_hidden);
     const {hidden} = formHide;
 
     const [stateEffect, setStateEffect] = useState(false);
     const handleChange = useCallback(() => setStateEffect(!stateEffect), [stateEffect]);
 
-    const [selected, setSelected] = useState('Live Order');
+    const [selected, setSelected] = useState(notification.show_device);
     const handleSelectChange = useCallback((value) => setSelected(value), []);
 
-    const [selectedOrder, setSelectedOrder] = useState(notification.orderStatus.split(","));
+    const [selectedOrder, setSelectedOrder] = useState(notification.order_status.split(","));
 
-    const [checkedOrder, setCheckedOrder] = useState(notification.showOrder);
+    const [checkedOrder, setCheckedOrder] = useState(notification.show_notifications);
     const handleChangeOrder = useCallback((newChecked) => setCheckedOrder(newChecked), []);
 
-    const [color, setColor] = useState(notification.highlightColor);
+    const [color, setColor] = useState(notification.color_highlight);
     const onChangeColor = (e) => {
         setColor([e.target.name]= e.target.value)
     };
 
-    const [colorText, setColorText] = useState(notification.textColor);
+    const [colorText, setColorText] = useState(notification.color_text);
     const onChangeColorText = (e) => {
         setColorText([e.target.name]= e.target.value)
     };
 
-    const [colorDate, setColorDate] = useState(notification.colorDate);
+    const [colorDate, setColorDate] = useState(notification.color_date);
     const onChangeColorDate = (e) => {
         setColorDate([e.target.name]= e.target.value)
     };
 
-    const [borderRadius, setBorderRadius] = useState(notification.borderRadius);
+    const [borderRadius, setBorderRadius] = useState(notification.border_radius);
     const onChangeBorderRadius = (e) => {setBorderRadius([e.target.name]=e.target.value)}
 
     
@@ -105,40 +105,42 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
     };
 
     const initialState = {
-        showOrder: '', 
-        selectOrder: '', 
-        numberOfLive: '', 
-        orderStatus: '',
-        nextTimeDisplay: '',
-        displaytime: '',
-        dateFormat: '',
-        showDevices: '',
-        customText: '',
-        notiDisplay: '',
-        notiHidden: '',
+        show_notifications: '',
+        show_custom_order:'', 
+        number_of_live: '', 
+        type_order: '', 
+        order_status: '',
+        time_loop: '',
+        time_display: '',
+        type_date: '',
+        show_device: '',
+        text_popup: '',
+        effect_display: '',
+        effect_hidden: '',
         position: '',
-        highlightColor: '#000000',
-        textColor: '#000000',
-        colorDate: '#000000',
-        borderRadius: ''
+        color_highlight: '#000000',
+        color_date: '#000000',
+        color_text: '#000000',
+        border_radius: ''
     };
 
     const notify = notification.position
 
     const [formData, setFormData] = useState(initialState);
     formData.position = positionValue;
-    formData.showOrder = JSON.stringify(checkedOrder);
-    formData.selectOrder = selectedOrderSelect;
-    formData.orderStatus = selectedOrder + "";
-    formData.dateFormat = choose;
-    formData.showDevices = selected;
-    formData.notiDisplay = display;
-    formData.notiHidden = hidden;
-    formData.highlightColor = color
-    formData.textColor = colorText
-    formData.colorDate = colorDate
-    formData.borderRadius = borderRadius;
-    const {customText} = formData;
+    formData.show_notifications = checkedOrder === true ? "1" : "0";
+    formData.show_custom_order = selectedShow;
+    formData.type_order = selectedOrderSelect;
+    formData.order_status = selectedOrder + "";
+    formData.type_date = choose;
+    formData.show_device = selected;
+    formData.effect_display = display;
+    formData.effect_hidden = hidden;
+    formData.color_highlight = color
+    formData.color_text = colorText
+    formData.color_date = colorDate
+    formData.border_radius = borderRadius;
+    const {text_popup} = formData;
     const onChangeData = (e) => {
         setFormData({...formData, [e.target.name] : e.target.value});
     }
@@ -146,6 +148,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
         e.preventDefault();
         addNotification(formData);
     }
+    console.log(formData.show_notifications);
 
     return (
         <>
@@ -193,7 +196,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                             <div className='mb-3'>
                                 <Layout>
                                     <Layout.Section secondary>
-                                        <TextStyle variation='strong'>Show Custiom Order</TextStyle>
+                                        <TextStyle variation='strong'>Show Custom Order</TextStyle>
                                     </Layout.Section>
                                     <Layout.Section>
                                         <div className='input-md'>
@@ -214,7 +217,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                         </Layout.Section>
                                         <Layout.Section>
                                             <div className='input-sm'>
-                                                <input className='input-form' type='number' name='numberOfLive' defaultValue={notification.numberOfLive} onChange={onChangeData} />
+                                                <input className='input-form' type='number' name='numberOfLive' defaultValue={notification.number_of_live} onChange={onChangeData} />
                                             </div>
                                         </Layout.Section> 
                                     </Layout> 
@@ -254,7 +257,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                 </Layout.Section>
                                 <Layout.Section>
                                     <div className='time-display'>
-                                        <input className='input-form' type='number' name='nextTimeDisplay' defaultValue= {notification.nextTimeDisplay} onChange={onChangeData}/>
+                                        <input className='input-form' type='number' name='nextTimeDisplay' defaultValue= {notification.time_loop} onChange={onChangeData}/>
                                         <span className='seconds'>seconds</span>
                                     </div>
                                 </Layout.Section> 
@@ -266,7 +269,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                 </Layout.Section>
                                 <Layout.Section>
                                     <div className='time-display'>
-                                        <input className='input-form' type='number' name='displaytime' defaultValue= {notification.displaytime} onChange={onChangeData}/>
+                                        <input className='input-form' type='number' name='displaytime' defaultValue= {notification.time_display} onChange={onChangeData}/>
                                         <span className='seconds'>seconds</span>
                                     </div>
                                 </Layout.Section> 
@@ -335,7 +338,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                     <TextStyle variation='strong'>Custom Text</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                        <input className='input-form' type='text' name= 'customText' defaultValue= {notification.customText} onChange={onChangeData}/>
+                                        <input className='input-form' type='text' name= 'text_popup' defaultValue= {notification.text_popup} onChange={onChangeData}/>
                                         <p className='note-text p-0'>
                                         If you want to show the customer's name, lets put "%name" you in the text box. Do the same with the customer's city.
                                         Or instead of show the customer's name you can replace "%name" with "Someone". And "%city" it works with city.
@@ -351,7 +354,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                     <TextStyle variation='strong'>Message display effect</TextStyle>
                                 </Layout.Section>
                                 <Layout.Section>
-                                    <select className='option-list' name='display' defaultValue={notification.notiDisplay} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                    <select className='option-list' name='display' defaultValue={notification.effect_display} onClick={() => setStateEffect(true)} onChange={onChange} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
                                         <optgroup label='Attention Seekers'>
                                             <option value='bounce'>Bounce</option>
                                             <option value='flash'>Flash</option>
@@ -375,7 +378,7 @@ const NotificationSetting = ({addNotification, getNotification, notification, lo
                                 <TextStyle variation='strong'>Message hidden effect</TextStyle>
                             </Layout.Section>
                             <Layout.Section>
-                                <select  className='option-list' name='hidden' defaultValue={notification.notiHidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
+                                <select  className='option-list' name='hidden' defaultValue={notification.effect_hidden} onClick={() => setStateEffect(true)}  onChange={onChangeHide} style={{width:'250px', height: '40px', margin:0, padding:'5px'}}>
                                     <optgroup label='Bouncing Exit'>
                                         <option value='fadeOutBig'>fadeOutBig</option>
                                         <option value='bounceOut'>Bounce Out</option>

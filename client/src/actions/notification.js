@@ -16,7 +16,7 @@ export const addNotification = (formData) => async (dispatch) => {
         },
     }
     try {
-        const res = await axios.post('/api/notificationSetting', formData, config);
+        const res = await axios.post('/api/notification_view', formData, config);
 
         dispatch({
             type: ADD_NOTIFICATION,
@@ -42,7 +42,7 @@ export const addNotification = (formData) => async (dispatch) => {
 // get notification
 export const getNotification = () => async (dispatch) => {
     try {
-        const res = await axios('/api/notificationSetting');
+        const res = await axios('/api//notification_view');
         dispatch({
             type: GET_NOTIFICATION,
             payload: res.data
@@ -58,7 +58,7 @@ export const getNotification = () => async (dispatch) => {
 // sync data
 export const syncData = () => async (dispatch) => {
     try {
-        const res = await axios.get('/api/notificationSetting')
+        const res = await axios.get('/api//notification_view')
         dispatch({type: SYNC_DATA, payload: res.data});
         dispatch(setAlert('SYNC DATA SUCCESS', 'success'));
     } catch (err) {

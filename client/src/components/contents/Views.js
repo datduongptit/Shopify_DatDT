@@ -8,7 +8,7 @@ import {
   QuestionMarkMajor
 } from '@shopify/polaris-icons';
 const Views = () => {
-    const [selected, setSelected] = useState(3);
+    const [selected, setSelected] = useState(0);
 
   const handleTabChange = useCallback(
     (selectedTabIndex) => setSelected(selectedTabIndex),

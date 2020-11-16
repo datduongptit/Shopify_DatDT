@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/manualSale', require('./routes/apis/manualSale'));
-app.use('/api/notificationsetting', require('./routes/apis/notificationSetting'));
+app.use('/api/notification_view', require('./routes/apis/notificationView'));
 app.use('/api/realtime_setting', require('./routes/apis/realtimeSetting'));
 
 app.get('/', (req, res) => {
